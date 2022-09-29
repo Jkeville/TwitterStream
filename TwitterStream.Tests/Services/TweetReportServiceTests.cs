@@ -30,6 +30,7 @@ namespace TwitterStream.Tests.Services
             result.ShouldBeNull();
         }
 
+        /*
         [Fact]
         public void GetTopTenHashTags_GivenTweetNotIncludeAnyHashtags_ShouldReturnNull()
         {
@@ -58,7 +59,7 @@ namespace TwitterStream.Tests.Services
             //Assert
             result.ShouldBeNull();
         }
-
+       
         [Fact]
         public void GetTopTenHashTags_GivenValidTweetIncludeHashtags_ShouldReturnSomeHashtags()
         {
@@ -97,6 +98,8 @@ namespace TwitterStream.Tests.Services
             result.Count().ShouldBeGreaterThan(0);
         }
 
+        */
+
         [Fact]
         public void GetTotalTweetReceived_GivenNoTweetReturnFromRepo_ShouldReturnZero()
         {
@@ -114,7 +117,7 @@ namespace TwitterStream.Tests.Services
             //Assert
             result.ShouldBe(0);
         }
-
+        /*
         [Fact]
         public void GetTotalTweetReceived_GivenValidTweetsReturnFromRepo_ShouldReturnNumOfTweetCount()
         {
@@ -155,5 +158,6 @@ namespace TwitterStream.Tests.Services
             //Assert
             result.ShouldBe(1);
         }
+        */
     }
 }
