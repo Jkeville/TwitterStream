@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TweetStream.Models\TweetStream.Models.csproj" />
-    <ProjectReference Include="..\Ingestion.API\Ingestion.API.csproj" />
     <ProjectReference Include="..\TwitterStream.Contracts\TwitterStream.Contracts.csproj" />
     <ProjectReference Include="..\TwitterStream.Entities\TwitterStream.Entities.csproj" />
     <ProjectReference Include="..\TwitterStream.LoggerService\TwitterStream.LoggerService.csproj" />

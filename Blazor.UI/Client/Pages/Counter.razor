@@ -1,0 +1,28 @@
+﻿@page "/counter"
+@using TweetStream.Models.Models
+@using Blazor.UI.Shared
+@using System.Text.Json
+@inject HttpClient Http
+
+<PageTitle>Start Stream</PageTitle>
+
+<h1>Start Twitter Sample Stream</h1>
+
+<p role="status"></p>
+
+<button class="btn btn-primary" @onclick="StartStream">Start Twitter Stream</button>
+
+@code {
+
+
+    private  async Task<bool> StartStream()
+    {
+        StartResult startResult;
+        var response = await Http.GetFromJsonAsync<StartResult>( "tweet");
+       
+        // startResult = await JsonSerializer.DeserializeAsync<StartResult>(await response.Content.ReadAsStreamAsync());
+
+
+        return true;
+    }
+}

@@ -1,0 +1,125 @@
+﻿@page "/fetchdata"
+@using TweetStream.Models.Models
+@using Blazor.UI.Shared
+@using System.Text.Json
+@using Blazor.UI.Client.Services
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.SignalR.Client
+@inject HttpClient Http
+@implements IAsyncDisposable
+@inject NavigationManager NavigationManager
+
+<PageTitle>Tweet Stream Results</PageTitle>
+
+<h1>Tweet Stream Results</h1>
+
+<p>Tweet Stream Statistics and Top 10 Hashtags.</p>
+<button class="btn btn-primary" @onclick="RefreshData">Refresh Data</button>
+
+@if (totals == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    
+
+<section id="counter" class="counter">
+            <div class="main_counter_area">
+                <div class="overlay p-y-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="main_counter_content text-center white-text wow fadeInUp">
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                    <span class="oi oi-calculator" aria-hidden="true"></span>
+                                    <h2 class="statistic-counter">@totals.TotalTweets.ToString("N0")</h2>
+                                        <span></span>
+                                        <p>Total Tweets</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="single_counter p-y-2 m-t-1">
+                                    <span class="oi oi-bar-chart" aria-hidden="true"></span>
+                                    <h2 class="statistic-counter">@Math.Round(totals.TweetsPerSecond,2)</h2>
+                                        <p>Tweets per Second</p>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Top 10 Hashtags</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tag in totals.TopTenHashTags)
+            {
+                <tr>
+                    <td>@tag</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private TopTenTotalsModel totals;
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        totals = await Http.GetFromJsonAsync<TopTenTotalsModel>("Report");
+
+        hubConnection = new HubConnectionBuilder()
+         .WithUrl(NavigationManager.ToAbsoluteUri("/twitterhub"))
+         .Build();
+
+        hubConnection.On<TopTenTotalsModel>("ReceiveMessage", (data) =>
+           {
+               totals = data;
+               StateHasChanged();
+           });
+
+        await hubConnection.StartAsync();
+        if (hubConnection.State == HubConnectionState.Connected)
+            Console.WriteLine("connection started");
+
+        await CallChartEndpoint();
+    }
+
+    protected async void RefreshData(){
+        totals = await Http.GetFromJsonAsync<TopTenTotalsModel>("Report");
+
+    }
+
+    public bool IsConnected =>
+       hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+    public async Task CallChartEndpoint()
+    {
+        var result = await Http.GetAsync("api/chart");
+        if (!result.IsSuccessStatusCode)
+            Console.WriteLine("Something went wrong with the response");
+    }
+
+}
