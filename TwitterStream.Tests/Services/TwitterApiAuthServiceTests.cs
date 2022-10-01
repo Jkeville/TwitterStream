@@ -3,9 +3,10 @@ using Moq;
 using Shouldly;
 
 using TwitterStream.Contracts;
-using Ingestion.API.Configuration;
-using Ingestion.API.Services;
-using Ingestion.API.Exceptions;
+using TweetStream.Ingestion;
+
+using TweetStream.Models.Models;
+using TweetStream.Ingestion.Services;
 
 namespace TwitterStream.Tests.Services
 {

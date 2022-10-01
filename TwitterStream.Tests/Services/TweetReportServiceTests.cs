@@ -2,11 +2,12 @@
 using Shouldly;
 using TwitterStream.Contracts;
 using TwitterStream.Entities.Models;
-using Ingestion.API.Services;
+
 using Microsoft.Extensions.Configuration;
-using Ingestion.API.Configuration;
+
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using TweetStream.Ingestion.Services;
 
 namespace TwitterStream.Tests.Services
 {
