@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.UI.Shared", "Blazor.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.Ingestion", "Tweet.Ingestion\TweetStream.Ingestion.csproj", "{4787B21A-A996-4506-AADD-26262391CB5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartJs.Blazor", "Blazor.UI\ChartJs.Blazor\ChartJs.Blazor.csproj", "{BEB818DD-B08B-40BE-807D-199C856DBA2D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,10 +63,6 @@ Global
 		{4787B21A-A996-4506-AADD-26262391CB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4787B21A-A996-4506-AADD-26262391CB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4787B21A-A996-4506-AADD-26262391CB5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BEB818DD-B08B-40BE-807D-199C856DBA2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BEB818DD-B08B-40BE-807D-199C856DBA2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BEB818DD-B08B-40BE-807D-199C856DBA2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEB818DD-B08B-40BE-807D-199C856DBA2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

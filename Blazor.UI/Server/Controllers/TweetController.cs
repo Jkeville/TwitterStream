@@ -39,18 +39,18 @@ namespace Blazor.UI.Server.Controllers
         [HttpGet]
         public async Task<StartResult> Get()
         {
-            StartResult startResult = new StartResult() { Status = "Sucess" };
+            StartResult startResult = new StartResult() { IsSuccess =false};
             try
             {
                 var response = await _tweetService.GetTweetsSampleStreamResponseAsync();
-                await _tweetService.GetTweetsSampleStreamAsync(response, new CancellationToken());
-                //await _twitterApiTweetService.GetTweets(response, cancellationToken);
+                _tweetService.GetTweetsSampleStreamAsync(response, new CancellationToken());
+                startResult.IsSuccess = true;
 
 
             }
             catch (Exception ex)
             {
-                startResult.Status = "Faiure";
+                startResult.IsSuccess = false;
                 startResult.Message = ex.Message;
                 _logger.LogError(ex.Message);
                

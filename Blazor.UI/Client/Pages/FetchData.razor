@@ -23,36 +23,42 @@
 else
 {
 
-    
 
-<section id="counter" class="counter">
-            <div class="main_counter_area">
-                <div class="overlay p-y-3">
-                    <div class="container">
-                        <div class="row">
-                            <div class="main_counter_content text-center white-text wow fadeInUp">
-                                <div class="col-md-3">
-                                    <div class="single_counter p-y-2 m-t-1">
-                                    <span class="oi oi-calculator" aria-hidden="true"></span>
-                                    <h2 class="statistic-counter">@totals.TotalTweets.ToString("N0")</h2>
-                                        <span></span>
-                                        <p>Total Tweets</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="single_counter p-y-2 m-t-1">
-                                    <span class="oi oi-bar-chart" aria-hidden="true"></span>
-                                    <h2 class="statistic-counter">@Math.Round(totals.TweetsPerSecond,2)</h2>
-                                        <p>Tweets per Second</p>
-                                    </div>
-                                </div>
-                               
+
+    <section id="counter" class="counter">
+        <div class="main_counter_area">
+            <div class="overlay p-y-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 main_counter_content text-center white-text wow fadeInUp">
+
+                            <div class="single_counter p-y-2 m-t-1">
+                                <span class="oi oi-calculator" aria-hidden="true"></span>
+                                <h2 class="statistic-counter">@totals.TotalTweets.ToString("N0")</h2>
+                                <span></span>
+                                <p>Total Tweets</p>
                             </div>
                         </div>
+                        <div class="col-4 main_counter_content text-center white-text wow fadeInUp">
+                            <div class="single_counter p-y-2 m-t-1">
+                                <span class="oi oi-bar-chart" aria-hidden="true"></span>
+                                <h2 class="statistic-counter">@Math.Round(totals.TweetsPerSecond,2)</h2>
+                                <p>Tweets/Second</p>
+                            </div>
+                        </div>
+                        <div class="col-4 main_counter_content text-center white-text wow fadeInUp">
+                            <div class="single_counter p-y-2 m-t-1">
+                                <span class="oi oi-pie-chart" aria-hidden="true"></span>
+                                <h2 class="statistic-counter">@Math.Round(maxTweetsPerSecond,1)</h2>
+                                <p>Max Tweets/Second</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
 
@@ -60,16 +66,21 @@ else
         <thead>
             <tr>
                 <th>Top 10 Hashtags</th>
-               
+
             </tr>
         </thead>
         <tbody>
-            @foreach (var tag in totals.TopTenHashTags)
-            {
-                <tr>
-                    <td>@tag</td>
-                    
-                </tr>
+            @{
+
+                @foreach (var tag in totals.TopTenHashTags)
+                {
+                    i++;
+                    <tr>
+                        <td>@i</td>
+                        <td>@tag</td>
+
+                    </tr>
+                }
             }
         </tbody>
     </table>
@@ -78,7 +89,8 @@ else
 @code {
     private TopTenTotalsModel totals;
     private HubConnection? hubConnection;
-
+    int i = 0;
+    double maxTweetsPerSecond = 0;
     protected override async Task OnInitializedAsync()
     {
         totals = await Http.GetFromJsonAsync<TopTenTotalsModel>("Report");
@@ -89,7 +101,14 @@ else
 
         hubConnection.On<TopTenTotalsModel>("ReceiveMessage", (data) =>
            {
+               i = 0;
                totals = data;
+
+               if (totals.TweetsPerSecond > maxTweetsPerSecond)
+               {
+                   maxTweetsPerSecond = totals.TweetsPerSecond;
+               }
+
                StateHasChanged();
            });
 
@@ -100,7 +119,8 @@ else
         await CallChartEndpoint();
     }
 
-    protected async void RefreshData(){
+    protected async void RefreshData()
+    {
         totals = await Http.GetFromJsonAsync<TopTenTotalsModel>("Report");
 
     }

@@ -8,21 +8,46 @@
 
 <h1>Start Twitter Sample Stream</h1>
 
-<p role="status"></p>
 
-<button class="btn btn-primary" @onclick="StartStream">Start Twitter Stream</button>
+      
+
+
+<p role="status">@streamStatus</p>
+
+<button id="btnStream" class="btn @btnClass" @onclick="StartStream">@buttonText <span class="@iconClass oi oi-media-step-forward" aria-hidden="true"></span></button>
 
 @code {
-
-
-    private  async Task<bool> StartStream()
+    string isEnabled = "enabled";
+    string buttonText = "Start Stream";
+    string functionName = "StartStream";
+    string btnClass = "btn-primary";
+    bool isRunning = false;
+    string streamStatus = "";
+    string iconClass = "";
+    private async Task<bool> StartStream()
     {
         StartResult startResult;
-        var response = await Http.GetFromJsonAsync<StartResult>( "tweet");
-       
-        // startResult = await JsonSerializer.DeserializeAsync<StartResult>(await response.Content.ReadAsStreamAsync());
 
 
-        return true;
+        if(!isRunning){
+            startResult = await Http.GetFromJsonAsync<StartResult>("tweet");
+
+            if (startResult.IsSuccess)
+            {
+                isRunning = true;
+                buttonText = "Streaming...";
+                btnClass = "btn-success";
+                streamStatus = "Streaming Sampled Tweets...";
+                iconClass = "hide";
+
+                StateHasChanged();
+            }else{
+                throw new InvalidOperationException(startResult.Message);
+
+            }
+
+            return startResult.IsSuccess;
+        }
+        return false;
     }
 }

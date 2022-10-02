@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Scales\Time\Line.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.9" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.9" />
@@ -17,8 +21,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\TweetStream.Models\TweetStream.Models.csproj" />
-    <ProjectReference Include="..\ChartJs.Blazor\ChartJs.Blazor.csproj" />
     <ProjectReference Include="..\Shared\Blazor.UI.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Scales\Time\" />
   </ItemGroup>
 
 </Project>
