@@ -111,3 +111,58 @@ body {
     border-radius: 5px;
     display: inline-block;
 }
+
+.idle{
+    background:rgba(0, 0, 0, 0.2)
+}
+.speed-range1 {
+    background: red !important;
+}
+
+.speed-range2 {
+    background: darkorange !important;
+}
+
+.speed-range3 {
+    background: orange !important;
+}
+.speed-range4 {
+    background: yellow !important;
+    color: darkgrey !important;
+}
+
+.speed-range5 {
+    background: yellow !important;
+    color:darkgrey !important;
+}
+.speed-range6 {
+    background: lightgreen !important;
+    color: darkgrey !important;
+}
+
+.speed-range7 {
+    background: green !important;
+    color: darkgrey !important;
+}
+
+.speed-range8 {
+    background: darkgreen !important;
+}
+.speed-range9 {
+    background: blue !important;
+}
+
+.speed-range10 {
+    background: darkblue !important;
+}
+
+section {
+    background: #f8f9fa;
+    padding: 40px;
+    margin: 40px;
+    width: 100%;
+}
+
+h4 {
+   color: rgb(104 93 191 / 74%) !important;
+}

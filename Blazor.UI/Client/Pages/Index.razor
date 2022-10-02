@@ -9,8 +9,9 @@
     <li>Please make sure there is a Redis container running on port 6379.</li>
     <li>Click button to start stream on 'Start Stream' menu item.</li>
     <li>Click 'Stream Stats' to see Tweet Totals, Throughput and top 10 Hashtags.</li>
-    <li>Totals auto update using a SignalR Hub for near real time (every 1 second) updates.</li>
-    <li>Can manually refresh.</li>
+    <li>Totals auto update using a SignalR Hub for near real time (every 200 ms) updates.</li>
+    
+    <li>Data refresh set to run for 120 minutes (configurable in appsettings of Blazor.UI.Server app) </li>
 </ul>
 
 

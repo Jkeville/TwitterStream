@@ -11,25 +11,32 @@
 
 <PageTitle>Tweet Stream Results</PageTitle>
 
-<h1>Tweet Stream Results</h1>
-
-<p>Tweet Stream Statistics and Top 10 Hashtags.</p>
-<button class="btn btn-primary" @onclick="RefreshData">Refresh Data</button>
-
-@if (totals == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
+<div class="container-fluid">
 
 
+    <h1>Tweet Stream Results</h1>
 
-    <section id="counter" class="counter">
-        <div class="main_counter_area">
-            <div class="overlay p-y-3">
-                <div class="container">
+    <p>Tweet Stream Statistics and Top 10 Hashtags.</p>
+   
+
+    @if (totals == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+
+
+
+        <section id="stats" class="counter">
+
+
+            <div class="container">
+                <h4>STREAM STATISTICS</h4>
+                <div class="main_counter_area">
+
                     <div class="row">
+
                         <div class="col-4 main_counter_content text-center white-text wow fadeInUp">
 
                             <div class="single_counter p-y-2 m-t-1">
@@ -42,55 +49,110 @@ else
                         <div class="col-4 main_counter_content text-center white-text wow fadeInUp">
                             <div class="single_counter p-y-2 m-t-1">
                                 <span class="oi oi-bar-chart" aria-hidden="true"></span>
-                                <h2 class="statistic-counter">@Math.Round(totals.TweetsPerSecond,2)</h2>
+                                <h2 class="statistic-counter">@Math.Round(totals.TweetsPerSecond,1)</h2>
                                 <p>Tweets/Second</p>
                             </div>
                         </div>
-                        <div class="col-4 main_counter_content text-center white-text wow fadeInUp">
-                            <div class="single_counter p-y-2 m-t-1">
+                        <div class="col-4 main_counter_content  text-center white-text wow fadeInUp">
+                            <div class="single_counter @maxColorClass p-y-2 m-t-1">
                                 <span class="oi oi-pie-chart" aria-hidden="true"></span>
                                 <h2 class="statistic-counter">@Math.Round(maxTweetsPerSecond,1)</h2>
                                 <p>Max Tweets/Second</p>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
-        </div>
-    </section>
 
+        </section>
 
+        <section id="stats" class="counter">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Top 10 Hashtags</th>
+            <div class="container">
+                <h4>TOP TEN HASHTAGS</h4>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Hashtag</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
 
-            </tr>
-        </thead>
-        <tbody>
-            @{
+                            @foreach (var tag in totals.TopTenHashTags)
+                            {
+                                i++;
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@tag</td>
 
-                @foreach (var tag in totals.TopTenHashTags)
-                {
-                    i++;
-                    <tr>
-                        <td>@i</td>
-                        <td>@tag</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
 
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-}
+            </div>
+
+        </section>
+    }
+    <button class="btn btn-primary" @onclick="RefreshData">Manual Refresh</button>
+</div>
+
 
 @code {
     private TopTenTotalsModel totals;
     private HubConnection? hubConnection;
     int i = 0;
     double maxTweetsPerSecond = 0;
+    string maxColorClass = "gray";
+
+
+    private void GetMaxSpeedColor(double maxTweets)
+    {
+
+
+        switch (maxTweets)
+        {
+            case < 10:
+                maxColorClass = "speed-range1";
+                break;
+            case < 20:
+                maxColorClass = "speed-range2";
+                break;
+            case < 30:
+                maxColorClass = "speed-range3";
+                break;
+            case < 40:
+                maxColorClass = "speed-range4";
+                break;
+            case < 50:
+                maxColorClass = "speed-range5";
+                break;
+            case < 55:
+                maxColorClass = "speed-range6";
+                break;
+            case < 60:
+                maxColorClass = "speed-range7";
+                break;
+            case < 65:
+                maxColorClass = "speed-range8";
+                break;
+            case < 70:
+            default:
+                maxColorClass = "speed-range9";
+                break;
+
+
+        }
+
+
+    }
+
+
+
     protected override async Task OnInitializedAsync()
     {
         totals = await Http.GetFromJsonAsync<TopTenTotalsModel>("Report");
@@ -108,6 +170,8 @@ else
                {
                    maxTweetsPerSecond = totals.TweetsPerSecond;
                }
+
+               GetMaxSpeedColor(maxTweetsPerSecond);
 
                StateHasChanged();
            });

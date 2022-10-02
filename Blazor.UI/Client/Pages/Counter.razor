@@ -27,7 +27,9 @@
     private async Task<bool> StartStream()
     {
         StartResult startResult;
-
+        buttonText = "Requesting...";
+            streamStatus = "Attempting to Start Stream...";
+        iconClass = "hide";
 
         if(!isRunning){
             startResult = await Http.GetFromJsonAsync<StartResult>("tweet");
