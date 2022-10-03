@@ -20,9 +20,10 @@ Requirements
 
 1. Running **Docker Desktop** to make sure docker daemon is running
 2. Run Redis Container:
+3.
 
-
-4.  Set **Blazor.UI.Server** as Startup Project
+3.  Set **Blazor.UI.Server** as Startup Project
+![image](https://user-images.githubusercontent.com/50490528/193567235-544d4412-a7d1-4da6-b809-0352d7e4d90f.png)
 
 
 ## Authentication
@@ -38,9 +39,14 @@ https://api.twitter.com/oauth2/token
 ![image](https://user-images.githubusercontent.com/50490528/193566198-8bb70213-ebab-48e6-8694-c89aaabfdff2.png)
 
 ## See Live Stats
+Statistics and top 10 hashtags are stored in redis from the broker app.  Each streaming session the throughput is reset and the Max Tweets/Second is recalculated for the current session only.
+
 ![image](https://user-images.githubusercontent.com/50490528/193566442-2010838e-145e-434b-b6ac-28315b26f3b2.png)
 
 
 ## Top Ten HashTags
+
+Top ten hashtags are stored in memory on redis as each tweet is processed.
+
 ![image](https://user-images.githubusercontent.com/50490528/193566660-1353ae2b-1269-4f32-a0e8-650422c39128.png)
 
