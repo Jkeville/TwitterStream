@@ -35,8 +35,7 @@ https://api.twitter.com/oauth2/token
 ## See Live Stats
 Statistics and top 10 hashtags are stored in redis from the broker app.  Each streaming session the throughput is reset and the Max Tweets/Second is recalculated for the current session only.
 
-![image](https://user-images.githubusercontent.com/50490528/193566442-2010838e-145e-434b-b6ac-28315b26f3b2.png)
-
+![image](https://user-images.githubusercontent.com/50490528/193568269-e018b860-9206-48f3-87af-a46e58e8bfbd.png)
 
 ## Top Ten HashTags
 
