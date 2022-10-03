@@ -30,12 +30,12 @@ https://api.twitter.com/oauth2/token
 ## Start Stream
 ![image](https://user-images.githubusercontent.com/50490528/193566139-641576e2-bfef-4971-9647-6bd5f750c97e.png)
 
-![image](https://user-images.githubusercontent.com/50490528/193566198-8bb70213-ebab-48e6-8694-c89aaabfdff2.png)
+![image](https://user-images.githubusercontent.com/50490528/193569774-3a91ce38-4063-4e8f-aaa5-3e97339f3de6.png)
 
 ## See Live Stats
 Statistics and top 10 hashtags are stored in redis from the broker app.  Each streaming session the throughput is reset and the Max Tweets/Second is recalculated for the current session only.
 
-![image](https://user-images.githubusercontent.com/50490528/193568269-e018b860-9206-48f3-87af-a46e58e8bfbd.png)
+![image](https://user-images.githubusercontent.com/50490528/193570347-533bdcd7-0bda-4c57-b931-a93891c77ff0.png)
 
 ## Statistics Configuration
 The Blazor application uses SignalR to communicate with Redis to at a configurable rate to update the counters and hastags on the client.
